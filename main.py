@@ -10,6 +10,18 @@ class Rental_Calc:
     def __init__(self):
         self.props = {}
 
+    def validate(self, question):
+        result = question.strip()
+        try:
+            result = int(result)
+        except:
+            if result == 'quit':
+                return 'quit'
+            print("Please enter positive digits for the income. Or type 'quit'.")
+            self.income()
+
+
+
     def income(self):
         print("Let's look at all the types of income you could receive from this property. If the answer is none, please enter 0.")
         inc_1 = input("How much would you charge in rent per month (total if split property)?").strip()
@@ -98,12 +110,9 @@ class Rental_Calc:
             self.props[name] = 'Unfinished'
             if self.income() == 'quit':
                 break
+            if self.expenses() == 'quit':
+                break
             break
-            # if self.income() == 'quit':
-            #     break
-            # self.expenses()
-            # if self.expenses() == False:
-            #     break
             # self.cashflow()
             # self.roi()
             # if self.roi() == False:
