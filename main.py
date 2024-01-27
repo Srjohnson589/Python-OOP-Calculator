@@ -13,19 +13,18 @@ class Rental_Calc:
     def validate(self, question):
         result = question.strip()
         try:
-            result = int(result)
+            return int(result)
         except:
             if result == 'quit':
                 return 'quit'
             print("Please enter positive digits for the income. Or type 'quit'.")
-            self.income()
-
-
 
     def income(self):
         print("Let's look at all the types of income you could receive from this property. If the answer is none, please enter 0.")
-        inc_1 = input("How much would you charge in rent per month (total if split property)?").strip()
-        print(inc_1)
+        inc_1 = self.validate(input("How much would you charge in rent per month (total if split property)?"))
+        if inc_1 == 'quit':
+            return 'quit'
+        elif inc_1
         try:
             inc_1 = int(inc_1)
             inc_2 = input("How much would you charge for laundry per month (total if split property)?").strip()
