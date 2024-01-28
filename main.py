@@ -8,7 +8,12 @@
 class Rental_Calc:
 
     def __init__(self):
-        self.props = {}
+        self.all_props = {}
+        self.prop_income = 0
+        self.prop_expenses = 0
+        self.prop_cashflow = 0
+        self.prop_invest = 0
+        self.prop_roi = 0
 
     def validate(self, question):
         try:
@@ -21,121 +26,110 @@ class Rental_Calc:
 
     def income(self):
         print("Let's look at all the types of income you could receive from this property. If the answer is none, please enter 0.")
-        current_income = 0
         # list of questions
-        questions = [ "How much would you charge in rent per month (total if split property)?",
-                    "How much would you charge for laundry per month (total if split property)?",
-                    "How much would you charge for storage per month (total)?"
+        questions = ["How much would you charge in rent per month (total if split property)? ",
+                    "How much would you charge for laundry per month (total if split property)? ",
+                    "How much would you charge for storage per month (total)? ",
+                    "How much in other misc income might you receive from this property per month? "
                     ]
         current = 0
         while current < len(questions):
             ans = self.validate(questions[current])
-            if ans and ans != 'quit':
-                current_income += ans
+            if ans >= 0 and ans != 'quit':
+                self.prop_income += ans
                 current += 1
             elif ans == 'quit':
                 return 'quit'
 
-        
-        
-        
-        # inc_1 = self.validate(input("How much would you charge in rent per month (total if split property)?"))
-        # if inc_1 == 'quit':
-        #     return 'quit'
-        # elif inc_1
-        # try:
-        #     inc_1 = int(inc_1)
-        #     inc_2 = input("How much would you charge for laundry per month (total if split property)?").strip()
-        #     try:
-        #         inc_2 = int(inc_2)
-        #         inc_3 = input("How much would you charge for storage per month (total)?").strip()
-        #         try:
-        #             inc_3 = int(inc_3)
-        #             inc_4 = input("How much in other misc income might you receive from this property per month?").strip()
-        #             try:
-        #                 inc_4 = int(inc_4)
-        #                 self.total_inc = inc_1 + inc_2 + inc_3 + inc_4
-        #             except:
-        #                 if inc_4 == 'quit':
-        #                     return 'quit'
-        #                 print("Please enter positive digits for the income. Or type 'quit'.")
-        #                 self.income() 
-        #         except:
-        #             if inc_2 == 'quit':
-        #                 return 'quit'
-        #             print("Please enter positive digits for the income. Or type 'quit'.")
-        #             self.income()
-        #     except:
-        #         if inc_2 == 'quit':
-        #             return 'quit'
-        #         print("Please enter positive digits for the income. Or type 'quit'.")
-        #         self.income()
-        # except:
-        #     if inc_1 == 'quit':
-        #         return 'quit'
-        #     print("Please enter positive digits for the income. Or type 'quit'.")
-        #     self.income()
-
     def expenses(self):
         print("Now let's look at all the types of expenses you could pay on this property. If the answer for a category is none, please enter 0.")
-        # while True:
-        #     exp_1 = input("How much would you pay in taxes on the property per month?")
-        #     self.check_valid(exp_1, self.expenses())
-        #     exp_2 = input("How much would you pay for insurance per month?")
-        #     self.check_valid(exp_2, self.expenses())
-        #     exp_3 = input("How much would you pay for utilities (electric, water, sewer, garbage, gas) per month? \n(If the tenant will pay, enter 0)")
-        #     self.check_valid(exp_3, self.expenses())
-        #     exp_4 = input("How much would you pay in HOA fees per month?")
-        #     self.check_valid(exp_4, self.expenses())
-        #     exp_5 = input("How much would you pay for lawncare/snow removal per month?")
-        #     self.check_valid(exp_5, self.expenses())
-        #     exp_6 = input("How much would you put aside for vacancy per month? (recommended 5% of total rent)")
-        #     self.check_valid(exp_6, self.expenses())
-        #     exp_7 = input("How much would you pay or set aside for repairs per month?")
-        #     self.check_valid(exp_7, self.expenses())
-        #     exp_8 = input("How much would you pay or set aside for CapEx per month? (long term maintence)")
-        #     self.check_valid(exp_8, self.expenses())
-        #     exp_9 = input("How much would you pay for property manangement per month?")
-        #     self.check_valid(exp_9, self.expenses())
-        #     exp_10 = input("How much would you pay for the mortgage per month?")
-        #     self.check_valid(exp_10, self.expenses())
-        #     self.total_exp = sum(exp_1, exp_2, exp_3, exp_4, exp_5, exp_6, exp_7, exp_8, exp_9, exp_10)
-        #     break
+        # list of questions
+        questions = ["How much would you pay in taxes on the property per month? ",
+                    "How much would you pay for insurance per month? ",
+                    "How much would you pay for utilities (electric, water, sewer, garbage, gas) per month? \n(If the tenant will pay, enter 0) ",
+                    "How much would you pay in HOA fees per month? ",
+                    "How much would you pay for lawncare/snow removal per month? ",
+                    "How much would you put aside for vacancy per month? (recommended 5% of total rent) ",
+                    "How much would you pay or set aside for repairs per month? ",
+                    "How much would you pay or set aside for CapEx per month? (long term maintenance) ",
+                    "How much would you pay for property manangement per month? ",
+                    "How much would you pay on the mortgage per month? "
+                    ]
+        current = 0
+        while current < len(questions):
+            ans = self.validate(questions[current])
+            if ans >= 0 and ans != 'quit':
+                self.prop_expenses += ans
+                current += 1
+            elif ans == 'quit':
+                return 'quit'
 
-    def cashflow(self):
-        pass
-
+    def invest(self):
+        print("We're almost there! After these final questions about your initial investment, we will have your ROI %.")
+        # list of questions
+        questions = ["What would be your initial down payment on the property? ",
+                    "How much would closing costs be? ",
+                    "How much would you spend on rehabilitation cost (painting, remodeling)? ",
+                    "How much would you spend in other miscellaneous initial costs? "
+                    ]
+        current = 0
+        while current < len(questions):
+            ans = self.validate(questions[current])
+            if ans >= 0 and ans != 'quit':
+                self.prop_invest += ans
+                current += 1
+            elif ans == 'quit':
+                return 'quit'
+            
     def roi(self):
-        pass
+        self.prop_cashflow = (self.prop_income - self.prop_expenses)*12
+        try:
+            self.prop_roi = self.prop_cashflow / self.prop_invest
+        except:
+            self.prop_roi = self.prop_cashflow
+        print(f"Total income : ${self.prop_income}")
+        print(f"Total expenses : ${self.prop_expenses}")
+        print(f"Calculated annual cashflow: ${self.prop_cashflow}")
+        print(f"Total investment: ${self.prop_invest}")
+        print("-------------------------")
+        print(f"ROI = {self.prop_roi:.2f}%")
+
 
     def print_out(self):
         print("Here are the investment properties we looked at today:")
         print("--------------------------")
-        for key, value in self.props.items():
+        for key, value in self.all_props.items():
             if type(value) == str:
                 print(f"{key} : {value}")
             else:
-                print(f"{key} : {value:.2f / 100}%")
+                print(f"{key} : {value:.2f}%")
 
     def runner(self):
         print('Welcome to your Rental Property ROI Calculator!')
         while True:
-            name = input('What would you like to call this property?').strip()
-            if name.lower() == 'quit':
-                break
-            # reinitializing in case there was a prior property
-            self.props[name] = 'Unfinished'
+            self.prop_income = self.prop_expenses = self.prop_cashflow = self.prop_invest = self.prop_roi = 0
+            while True:
+                name = input('What would you like to call this property? ').strip()
+                if name.lower() == 'quit':
+                    return self.end()
+                if name in self.all_props:
+                    print("Please choose a unique name for this calculation. ")
+                else:
+                    self.all_props[name] = 'Unfinished'
+                    break
             if self.income() == 'quit':
                 break
             if self.expenses() == 'quit':
                 break
-            break
-            # self.cashflow()
-            # self.roi()
-            # if self.roi() == False:
-            #     break
-            # break
-        # self.end()
+            if self.invest() == 'quit':
+                break
+            print(f"You did it! Given the following for {name}:")
+            self.roi()
+            self.all_props[name] = self.prop_roi()
+            restart = input("Would you like to look at another property, or try this property with different numbers? ").strip()
+            if restart.lower() in ['no', 'quit']:
+                break
+        self.end()
 
     def end(self):
         self.print_out()
