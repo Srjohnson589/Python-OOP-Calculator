@@ -11,52 +11,70 @@ class Rental_Calc:
         self.props = {}
 
     def validate(self, question):
-        result = question.strip()
         try:
+            result = input(question).strip()
             return int(result)
         except:
             if result == 'quit':
                 return 'quit'
-            print("Please enter positive digits for the income. Or type 'quit'.")
+            print("Please enter positive digits. Or type 'quit'.")
 
     def income(self):
         print("Let's look at all the types of income you could receive from this property. If the answer is none, please enter 0.")
-        inc_1 = self.validate(input("How much would you charge in rent per month (total if split property)?"))
-        if inc_1 == 'quit':
-            return 'quit'
-        elif inc_1
-        try:
-            inc_1 = int(inc_1)
-            inc_2 = input("How much would you charge for laundry per month (total if split property)?").strip()
-            try:
-                inc_2 = int(inc_2)
-                inc_3 = input("How much would you charge for storage per month (total)?").strip()
-                try:
-                    inc_3 = int(inc_3)
-                    inc_4 = input("How much in other misc income might you receive from this property per month?").strip()
-                    try:
-                        inc_4 = int(inc_4)
-                        self.total_inc = inc_1 + inc_2 + inc_3 + inc_4
-                    except:
-                        if inc_4 == 'quit':
-                            return 'quit'
-                        print("Please enter positive digits for the income. Or type 'quit'.")
-                        self.income() 
-                except:
-                    if inc_2 == 'quit':
-                        return 'quit'
-                    print("Please enter positive digits for the income. Or type 'quit'.")
-                    self.income()
-            except:
-                if inc_2 == 'quit':
-                    return 'quit'
-                print("Please enter positive digits for the income. Or type 'quit'.")
-                self.income()
-        except:
-            if inc_1 == 'quit':
+        current_income = 0
+        # list of questions
+        questions = [ "How much would you charge in rent per month (total if split property)?",
+                    "How much would you charge for laundry per month (total if split property)?",
+                    "How much would you charge for storage per month (total)?"
+                    ]
+        current = 0
+        while current < len(questions):
+            ans = self.validate(questions[current])
+            if ans and ans != 'quit':
+                current_income += ans
+                current += 1
+            elif ans == 'quit':
                 return 'quit'
-            print("Please enter positive digits for the income. Or type 'quit'.")
-            self.income()
+
+        
+        
+        
+        # inc_1 = self.validate(input("How much would you charge in rent per month (total if split property)?"))
+        # if inc_1 == 'quit':
+        #     return 'quit'
+        # elif inc_1
+        # try:
+        #     inc_1 = int(inc_1)
+        #     inc_2 = input("How much would you charge for laundry per month (total if split property)?").strip()
+        #     try:
+        #         inc_2 = int(inc_2)
+        #         inc_3 = input("How much would you charge for storage per month (total)?").strip()
+        #         try:
+        #             inc_3 = int(inc_3)
+        #             inc_4 = input("How much in other misc income might you receive from this property per month?").strip()
+        #             try:
+        #                 inc_4 = int(inc_4)
+        #                 self.total_inc = inc_1 + inc_2 + inc_3 + inc_4
+        #             except:
+        #                 if inc_4 == 'quit':
+        #                     return 'quit'
+        #                 print("Please enter positive digits for the income. Or type 'quit'.")
+        #                 self.income() 
+        #         except:
+        #             if inc_2 == 'quit':
+        #                 return 'quit'
+        #             print("Please enter positive digits for the income. Or type 'quit'.")
+        #             self.income()
+        #     except:
+        #         if inc_2 == 'quit':
+        #             return 'quit'
+        #         print("Please enter positive digits for the income. Or type 'quit'.")
+        #         self.income()
+        # except:
+        #     if inc_1 == 'quit':
+        #         return 'quit'
+        #     print("Please enter positive digits for the income. Or type 'quit'.")
+        #     self.income()
 
     def expenses(self):
         print("Now let's look at all the types of expenses you could pay on this property. If the answer for a category is none, please enter 0.")
