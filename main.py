@@ -125,7 +125,7 @@ class Rental_Calc:
                 break
             print(f"You did it! Given the following for {name}:")
             self.roi()
-            self.all_props[name] = self.prop_roi()
+            self.all_props[name] = str(self.prop_roi)
             restart = input("Would you like to look at another property, or try this property with different numbers? ").strip()
             if restart.lower() in ['no', 'quit']:
                 break
